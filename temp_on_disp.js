@@ -4,8 +4,8 @@ const config = {
     headers:{'Authorization': keyEsp}
 }
 const bodyReadTemp ={"pin":"2"};
-const urlReadTemp ="http://192.168.0.106/api/devices/dht11/read";
-const urlShowDisp ="http://192.168.0.106/api/devices/pcf8574/hd44780/write";
+const urlReadTemp ="http://192.168.0.103/api/devices/dht11/read";
+const urlShowDisp ="http://192.168.0.103/api/devices/pcf8574/hd44780/write";
 
 
 var measurTemperature = setInterval(measureTemperature(), 3000);
@@ -39,11 +39,10 @@ function showOnDispley(tempJson) {
         "text": tempString
     }; 
     console.log("dataTemp=", tempJson);
-    let promisDisp = axios.post(urlShowDisp, bodyShowDisp, config);
-    promisDisp.then(function (response) {
+    axios.post(urlShowDisp, bodyShowDisp, config)
+    .then(function (response) {
         console.log("Displey: ", response.status);
-    });
-    promisDisp.catch(function (error) {
+    }).catch(function (error) {
         console.log('error display: ', error.data);
     });
 }
