@@ -1,0 +1,14 @@
+{
+  "name": "node_1",
+  "version": "1.0.0",
+  "description": "init_projekt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "fedor",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
