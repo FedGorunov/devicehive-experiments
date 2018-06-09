@@ -46,6 +46,6 @@ function showOnDispley(tempJson) {
       console.log("Displey: ", response.status);
     })
     .catch(function(error) {
-      console.log("error display: ", error.data);
+      console.log(`error display: ${error.data}`);
     });
 }
