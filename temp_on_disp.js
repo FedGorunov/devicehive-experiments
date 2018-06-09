@@ -1,11 +1,11 @@
 const axios = require('axios');
-const keyEsp = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJwYXlsb2FkIjp7ImEiOlsyLDMsNCw1LDYsNyw4LDksMTAsMTEsMTIsMTUsMTYsMTddLCJlIjoxNTQzMTM1ODM4OTQwLCJ0IjowLCJ1IjoyMzM3LCJuIjpbIjIzMTQiXSwiZHQiOlsiKiJdfX0.vms7qK9lQhXo_SrnMVm1Y7etlapHltGZhgYjE0DCmek';
-const config = {
-    headers:{'Authorization': keyEsp}
+const axiosConfig = {
+    headers:{'Authorization': config.keyEsp}
 }
+const config = require("./config");
 const bodyReadTemp ={"pin":"2"};
-const urlReadTemp ="http://192.168.0.103/api/devices/dht11/read";
-const urlShowDisp ="http://192.168.0.103/api/devices/pcf8574/hd44780/write";
+const urlReadTemp ="http://"+ config.ipAdress+"/api/devices/dht11/read";
+const urlShowDisp ="http://"+ config.ipAdress+"/api/devices/pcf8574/hd44780/write";
 
 
 var measurTemperature = setInterval(measureTemperature(), 3000);
@@ -19,7 +19,7 @@ setTimeout(function(){
 
 function measureTemperature() {
     return function () {
-        var promisTemp = axios.post(urlReadTemp, bodyReadTemp, config);
+        var promisTemp = axios.post(urlReadTemp, bodyReadTemp, axiosConfig);
         promisTemp.then(function (response) {
         
             showOnDispley(response.data);
@@ -35,11 +35,11 @@ function showOnDispley(tempJson) {
     let bodyShowDisp = {
     "SDA": "4",
         "SCL": "5",
-        "address": "0x4E",
+        "address": config.i2cAdressDisp,
         "text": tempString
     }; 
     console.log("dataTemp=", tempJson);
-    axios.post(urlShowDisp, bodyShowDisp, config)
+    axios.post(urlShowDisp, bodyShowDisp, axiosConfig)
     .then(function (response) {
         console.log("Displey: ", response.status);
     }).catch(function (error) {
